@@ -48,6 +48,14 @@ in {
       [ "amd_iommu=on" ]) ++ (optional (builtins.length cfg.devices > 0)
         ("vfio-pci.ids=" + builtins.concatStringsSep "," cfg.devices))
       ++ (optional cfg.disableEFIfb "video=efifb:off")
+      ++ [
+        "isolcpus=nohz,domain,managed_irq,8-15,24-31"
+        "rcu_nocb_poll"
+        "rcu_nocbs=8-15,24-31"
+        "nohz_full=8-15,24-31"
+        "irqaffinity=0-7,16-23"       
+        "mitigations=off"
+      ]
       ++ (optionals cfg.ignoreMSRs [
         "kvm.ignore_msrs=1"
         "kvm.report_ignored_msrs=0"

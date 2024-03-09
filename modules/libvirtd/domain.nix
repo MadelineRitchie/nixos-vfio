@@ -806,7 +806,14 @@ let
         <controller type="pci" model="pcie-root-port"/>
         <controller type="sata"/>
         <controller type="scsi"/>
-
+        
+        <interface type="bridge">
+          <mac address="52:54:00:c3:bb:62"/>
+          <source bridge="br0"/>
+          <model type="virtio"/>
+          <address type="pci" domain="0x0000" bus="0x09" slot="0x00" function="0x0"/>
+        </interface>
+        
         ${mkInputDevicesXml definition.input}
         ${mkSpiceDevicesXml definition.spice}
         ${mkPciHostDevicesXml definition.pciHostDevices}
